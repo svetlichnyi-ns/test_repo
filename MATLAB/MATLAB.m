@@ -1,17 +1,17 @@
-% Импортируйте данные из csv-файлов
+% РРјРїРѕСЂС‚РёСЂСѓР№С‚Рµ РґР°РЅРЅС‹Рµ РёР· csv-С„Р°Р№Р»РѕРІ
 spectra = importdata("spectra.csv");
 starNames = importdata("star_names.csv");
 lambdaStart = importdata("lambda_start.csv");
 lambdaDelta = importdata("lambda_delta.csv");
-% Определите константы
-lambdaPr = 656.28; %нм
-speedOfLight = 299792.458; %км/c
+% РћРїСЂРµРґРµР»РёС‚Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹
+lambdaPr = 656.28; %РЅРј
+speedOfLight = 299792.458; %РєРј/c
 the_amount_of_stars = size(starNames, 1);
 the_amount_of_observations = size(spectra, 1);
-% Определите диапазон длин волн
+% РћРїСЂРµРґРµР»РёС‚Рµ РґРёР°РїР°Р·РѕРЅ РґР»РёРЅ РІРѕР»РЅ
 lambdaEnd = lambdaStart + (the_amount_of_observations - 1) * lambdaDelta;
 lambda = (lambdaStart:lambdaDelta:lambdaEnd)';
-% Рассчитайте скорости звезд относительно Земли
+% Р Р°СЃСЃС‡РёС‚Р°Р№С‚Рµ СЃРєРѕСЂРѕСЃС‚Рё Р·РІРµР·Рґ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ Р—РµРјР»Рё
 min_intensities = min(spectra);
 min_lambdas = rand(1, the_amount_of_stars);
 min_indexes = rand(1, the_amount_of_stars);
@@ -25,7 +25,7 @@ for number = 1:the_amount_of_stars
     speed(number) = speedOfLight * ((min_lambdas(1, number) / lambdaPr) - 1);
 end
 movaway = starNames(speed > 0)
-% Постройте график
+% РџРѕСЃС‚СЂРѕР№С‚Рµ РіСЂР°С„РёРє
 fg1=figure
 set(fg1, 'Visible', 'on')
 hold on
@@ -39,9 +39,9 @@ for number = 1:the_amount_of_stars
 end
 legend(starNames)
 grid on
-xlabel('Длина волны, нм')
-ylabel(['Интенсивность, эрг/см^2/с/', char(197)])
-title({'Спектры звёзд', 'в созвездии Льва'})
+xlabel('Р”Р»РёРЅР° РІРѕР»РЅС‹, РЅРј')
+ylabel(['РРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ, СЌСЂРі/СЃРј^2/СЃ/', char(197)])
+title({'РЎРїРµРєС‚СЂС‹ Р·РІС‘Р·Рґ', 'РІ СЃРѕР·РІРµР·РґРёРё Р›СЊРІР°'})
 hold off
-% Сохраните график
-saveas(fg1, 'спектры.png')
+% РЎРѕС…СЂР°РЅРёС‚Рµ РіСЂР°С„РёРє
+saveas(fg1, 'СЃРїРµРєС‚СЂС‹.png')
